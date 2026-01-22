@@ -1,0 +1,31 @@
+ENIGMAFORGE SOVEREIGN INFRASTRUCTURE LICENSE
+Version 1.0 (Non-Commercial Source-Available)
+
+This license governs use of the accompanying software, including the 
+Multimodal Modular Cognitive Operating System (MMCOS) kernel and 
+associated Persona Cartridges.
+
+1. PERMISSIONS
+You are permitted to view, download, and execute this source code for 
+personal, non-commercial, and hackathon evaluation purposes only.
+
+2. RESTRICTIONS
+- NO COMMERCIAL USE: You may not use this software or its architectural 
+  patterns (Speculative Swarm Execution, Neural Uplink Handshake) for 
+  any commercial purpose or financial gain.
+- NO DERIVATIVES: You may not distribute modified versions of the 
+  EnigmaForge kernel.
+- TRADE SECRET PROTECTION: The specific modulation parameters for 
+  "Zero-Shot Persona Instantiation" and the CSMP (Cognitive State 
+  Management Protocol) logic are declared as Trade Secrets of the 
+  author and are withheld from this public disclosure.
+
+3. ATTRIBUTION
+Any authorized academic or research reference to this architecture 
+must credit: "EnigmaForge MMCOS by Hans production".
+
+4. TERMINATION
+This license terminates automatically if you breach any of its terms.
+
+Licensed under the PolyForm Non-Commercial License 1.0.0.
+For commercial licensing, contact: hans@ai-swarmteams.com
