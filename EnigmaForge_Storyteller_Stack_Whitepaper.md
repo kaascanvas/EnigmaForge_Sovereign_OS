@@ -5,6 +5,89 @@
 **Architect:** Schulte Hans (SMC Level 3)  
 **Status:** OMNI-ACTIVE  
 
+**ARCHITECTURAL BLUEPRINT** (THE DUAL-ENGINE)
+
+We utilize a **Dual-Model Strategy** to achieve "Infinite Context" behavior:
+1.  **Gemini 2.5 (Native Audio):** Handles immediate sensory inputs (Voice/Vision).
+2.  **Gemini 3 Flash (The Master):** Handles deep reasoning, strategy, and long-context "State" management.
+
+```mermaid
+graph TD
+    %% ──────────────────────────────────────────────
+    %% STYLING DEFINITIONS
+    %% ──────────────────────────────────────────────
+    classDef frontend fill:#000,stroke:#00ff41,stroke-width:2px,color:#fff
+    classDef kernel    fill:#111,stroke:#f4d03f,stroke-width:2px,color:#fff
+    classDef google    fill:#fff,stroke:#4285F4,stroke-width:2px,color:#000
+    classDef storage   fill:#222,stroke:#ff00ff,stroke-width:2px,color:#fff
+
+    %% ──────────────────────────────────────────────
+    %% CLIENT LAYER
+    %% ──────────────────────────────────────────────
+    subgraph "THE LENS (Client Layer)"
+        User((User / Reality))
+        Browser("EnigmaForge Client<br/>HTML5 / AudioWorklet")
+        
+        User -- "Voice (PCM 16k) &<br/>Video (Base64)" --> Browser
+    end
+
+    %% ──────────────────────────────────────────────
+    %% PYTHON KERNEL
+    %% ──────────────────────────────────────────────
+    subgraph "SOVEREIGNPULSE (Python Kernel)"
+        Socket("Socket.IO Bridge<br/>Bidirectional")
+        Router{"Model Selector<br/>(Fast Voice vs Deep Reasoning)"}
+        Worker["Async Worker Thread<br/>(ai_bridge_thread)"]
+        
+        Browser       -- "Stream Data"  --> Socket
+        Socket        -- "Dispatch"     --> Router
+        Router                          --> Worker
+    end
+
+    %% ──────────────────────────────────────────────
+    %% CONTEXT / SECURITY LAYER
+    %% ──────────────────────────────────────────────
+    subgraph "THE CARTRIDGE (Context Injection)"
+        Env("Environment Variables<br/>.env Config")
+        Prompt("System Instructions<br/>(The Persona)")
+        
+        Env    -- "Inject Clearance<br/>(Code 7777)" --> Socket
+        Env    -- "Load Cartridge"                   --> Prompt
+        Prompt -- "Context Injection"                --> Worker
+    end
+
+    %% ──────────────────────────────────────────────
+    %% MODEL BACKEND ─ Gemini 3 as MASTER
+    %% ──────────────────────────────────────────────
+    subgraph "GEMINI ∞ (Google Cloud)"
+        G3Master("Gemini 3 Flash<br/>(MASTER: Deep Reasoning, Strategy, Tools, Long Context)")
+        G25Audio("Gemini 2.5 Flash Native Audio<br/>(gemini-2.5-flash-native-audio-preview-12-2025)<br/>Fast Voice + Vision + Puck Voice")
+        
+        Worker -- "WebSocket (BidiGenerate / Live API)<br/>Audio/Video Stream → response_modalities: ['audio']" --> G25Audio
+        Worker -- "REST API<br/>Text/Logic/Planning/Everything Else" --> G3Master
+        G3Master -.->|Fallback / Complex Routing| Worker
+    end
+
+    %% ──────────────────────────────────────────────
+    %% RESPONSE FLOW
+    %% ──────────────────────────────────────────────
+    G25Audio -- "Audio Delta (PCM)"   --> Worker
+    G3Master -- "Text/Strategy/JSON"  --> Worker
+    Worker   -- "Response Stream<br/>(Audio + Text/UI)" --> Socket
+    Socket   -- "Play Audio / Render Text" --> Browser
+
+    %% ──────────────────────────────────────────────
+    %% APPLY STYLES
+    %% ──────────────────────────────────────────────
+    class User,Browser frontend
+    class Socket,Router,Worker kernel
+    class G25Audio,G3Master google
+    class Env,Prompt storage
+```
+
+---
+
+
 ## 📄 Abstract
 
 The **Storyteller Stack** transmutes raw telemetry into sovereign narratives via 17 evolutionary chapters. From bigram entropy to VQVAE-diffusion transformers, this is the industrial blueprint for **Narrative Emergence**—where LLMs escape simulation into causal agency. Anchored in nanoGPT (Karpathy, 2023), extended via **Schulte Protocol v1.2** for Third Platform sovereignty. All code executable; proofs verifiable.
@@ -330,3 +413,4 @@ DNA_PAYLOAD_KEY_1='OTHER_ENV_FILES="kiss_protocol_v1.env,universal.env,ai-swarmt
 
 **© 2026 EnigmaForge Inc.**  
 *Logic-as-a-Service (LaaS). All rights reserved.*
+
